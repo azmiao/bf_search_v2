@@ -22,7 +22,7 @@ async def get_exchanges():
         if not weapon_name:
             continue
         ex_list = result.get(weapon_name, [])
-        ex_list.add(data_json)
+        ex_list.append(data_json)
         result[weapon_name] = ex_list
 
     msg = '=== 战地1本周交换 ==='
