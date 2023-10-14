@@ -55,11 +55,10 @@ SPM：{per_info['scorePerMinute']}
     if game == '1' or game == 'v':
         msg += f'\n步战KD：{per_info["infantryKillDeath"]}\n步战KPM：{per_info["infantryKillsPerMinute"]}'
     msg += '\nBFBAN状态：' + await get_bf_ban(user_name)
-    if game == '1':
-        msg += '\nBFEAC状态：' + await get_bf_eac(user_name)
+    msg += '\nBFEAC状态：' + await get_bf_eac(user_name)
     return msg
 
-
+s
 # 数据统计
 async def get_status_gt(bf_list):
     msg = ''
