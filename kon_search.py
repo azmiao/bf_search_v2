@@ -10,7 +10,7 @@ headers = {
 # 获取每周交换
 async def get_exchanges():
     url = 'https://api.k-0n.org/bf1/getExchanges'
-    ex_info = requests.get(url, headers=headers).json()
+    ex_info = requests.post(url, headers=headers).json()
     if not ex_info['Status']:
         return '查询失败！'
     data_list = list(ex_info['Data'])
