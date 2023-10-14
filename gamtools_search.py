@@ -56,7 +56,7 @@ SPM：{per_info['scorePerMinute']}
         msg += f'\n步战KD：{per_info["infantryKillDeath"]}\n步战KPM：{per_info["infantryKillsPerMinute"]}'
     msg += '\nBFBAN状态：' + await get_bf_ban(user_name)
     msg += '\nBFEAC状态：' + await get_bf_eac(user_name)
-    return msg
+    return msg.strip()
 
 
 # 数据统计
@@ -78,7 +78,7 @@ async def get_status_gt(bf_list):
 观看：{int(status_info["regions"]["ALL"]["amounts"].get("spectatorAmount", 0))}
 服务器数：{int(status_info["regions"]["ALL"]["amounts"].get("serverAmount", 0))}
 '''
-    return msg
+    return msg.strip()
 
 
 # 查询BF EAC

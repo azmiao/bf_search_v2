@@ -31,4 +31,4 @@ async def get_exchanges():
         ex_list = result[weapon_name]
         for ex_info in ex_list:
             msg += '\n - ' + ex_info['name'] + ' | ' + str(ex_info['cost']) + '零件'
-    return msg
+    return msg.strip()
