@@ -58,7 +58,7 @@ SPM：{per_info['scorePerMinute']}
     msg += '\nBFEAC状态：' + await get_bf_eac(user_name)
     return msg
 
-s
+
 # 数据统计
 async def get_status_gt(bf_list):
     msg = ''
