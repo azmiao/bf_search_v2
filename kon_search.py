@@ -30,5 +30,5 @@ async def get_exchanges():
         msg += '\n' + weapon_name + ':'
         ex_list = result[weapon_name]
         for ex_info in ex_list:
-            msg += '\n - ' + ex_info['name'] + ' | ' + ex_info['cost'] + '零件'
+            msg += '\n - ' + ex_info['name'] + ' | ' + str(ex_info['cost']) + '零件'
     return msg
