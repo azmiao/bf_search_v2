@@ -54,6 +54,9 @@ SPM：{per_info['scorePerMinute']}
     '''.strip()
     if game == '1' or game == 'v':
         msg += f'\n步战KD：{per_info["infantryKillDeath"]}\n步战KPM：{per_info["infantryKillsPerMinute"]}'
+    msg += 'BFBAN状态：' + await get_bf_ban(user_name)
+    if game == '1':
+        msg += 'BFEAC状态：' + await get_bf_eac(user_name)
     return msg
 
 
@@ -71,12 +74,44 @@ async def get_status_gt(bf_list):
             msg += f'游戏bf{game}查询超时，已跳过，你可以尝试再次单独查询该游戏'
             continue
         msg += f'''▼游戏bf{game}：
-总在线人数：{int(status_info["regions"]["ALL"]["amounts"]["soldierAmount"])}
-等待队列：{int(status_info["regions"]["ALL"]["amounts"]["queueAmount"])}
-观看：{int(status_info["regions"]["ALL"]["amounts"]["spectatorAmount"])}
-总服务器数：{int(status_info["regions"]["ALL"]["amounts"]["serverAmount"])}
+正在游玩人数：{int(status_info["regions"]["ALL"]["amounts"].get("soldierAmount", 0))}
+等待队列：{int(status_info["regions"]["ALL"]["amounts"].get("queueAmount", 0))}
+观看：{int(status_info["regions"]["ALL"]["amounts"].get("spectatorAmount", 0))}
+服务器数：{int(status_info["regions"]["ALL"]["amounts"].get("serverAmount", 0))}
 '''
-        if game == '1' or game == 'v':
-            msg += f'官服：{int(status_info["regions"]["ALL"]["amounts"]["diceServerAmount"])}\n'
-            msg += f'私服：{int(status_info["regions"]["ALL"]["amounts"]["communitySoldierAmount"])}\n'
     return msg
+
+
+# 查询BF EAC
+async def get_bf_eac(game_id):
+    url = 'https://api.bfeac.com/case/EAID/' + game_id
+    eac_info = requests.get(url=url, timeout=20).json()
+    if not eac_info['data']:
+        return '未封禁'
+    data = list(eac_info['data'])
+    eac_data = dict(data[0])
+    if eac_data['current_status'] == 0:
+        return '有举报但暂未处理'
+    elif eac_data['current_status'] == 1:
+        return '已封禁'
+    elif eac_data['current_status'] == 3:
+        return '自证通过'
+    elif eac_data['current_status'] == 4:
+        return '自证中'
+    elif eac_data['current_status'] == 5:
+        return '刷枪'
+    else:
+        return '未知'
+
+
+# 联bans
+async def get_bf_ban(game_id):
+    url = 'https://api.gametools.network/bfban/checkban/?names=' + game_id
+    ban_info = requests.get(url=url, timeout=20, proxies=proxy).json()
+    names_ = dict(ban_info['names'])
+    game_id_low_case = list(names_.keys())[0]
+    is_ban = names_[game_id_low_case]['hacker']
+    if not is_ban:
+        return '未封禁'
+    else:
+        return '已封禁'
