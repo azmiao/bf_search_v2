@@ -54,9 +54,9 @@ SPM：{per_info['scorePerMinute']}
     '''.strip()
     if game == '1' or game == 'v':
         msg += f'\n步战KD：{per_info["infantryKillDeath"]}\n步战KPM：{per_info["infantryKillsPerMinute"]}'
-    msg += 'BFBAN状态：' + await get_bf_ban(user_name)
+    msg += '\nBFBAN状态：' + await get_bf_ban(user_name)
     if game == '1':
-        msg += 'BFEAC状态：' + await get_bf_eac(user_name)
+        msg += '\nBFEAC状态：' + await get_bf_eac(user_name)
     return msg
 
 
