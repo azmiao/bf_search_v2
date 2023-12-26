@@ -1,6 +1,7 @@
 import asyncio
 import json
 import os
+from json import JSONDecodeError
 
 import requests
 from hoshino import R, logger
@@ -31,7 +32,10 @@ async def get_info_gt(game, display_name):
         'name': display_name,
         'platform': 'pc',
     }
-    per_info = requests.get(url=url, params=params, timeout=20, proxies=proxy).json()
+    try:
+        per_info = requests.get(url=url, params=params, timeout=20, proxies=proxy).json()
+    except JSONDecodeError as _:
+        return 'API接口出错，解析返回值失败！'
     if per_info.get('errors'):
         return '出现错误！API返回信息：\n' + str(per_info.get('errors'))
     avatar = per_info['avatar']
