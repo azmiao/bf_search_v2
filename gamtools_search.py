@@ -87,7 +87,7 @@ async def get_status_gt(bf_list):
 
 # 查询BF EAC
 async def get_bf_eac(game_id):
-    url = 'https://api.bfeac.com/case/EAID/' + game_id
+    url = 'https://www.bfeac.com/api/case/EAID/' + game_id
     eac_info = requests.get(url=url, timeout=20).json()
     if not eac_info['data']:
         return '未封禁'
