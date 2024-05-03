@@ -58,8 +58,14 @@ SPM：{per_info['scorePerMinute']}
     '''.strip()
     if game == '1' or game == 'v':
         msg += f'\n步战KD：{per_info["infantryKillDeath"]}\n步战KPM：{per_info["infantryKillsPerMinute"]}'
-    msg += '\nBFBAN状态：' + await get_bf_ban(user_name)
-    msg += '\nBFEAC状态：' + await get_bf_eac(user_name)
+    try:
+        msg += '\nBFBAN状态：' + await get_bf_ban(user_name)
+    except Exception as _:
+        msg += '\nBFBAN状态：获取出现错误，请检查BOT日志'
+    try:
+        msg += '\nBFEAC状态：' + await get_bf_eac(user_name)
+    except Exception as _:
+        msg += '\nBFEAC状态：获取出现错误，请检查BOT日志'
     return msg.strip()
 
 
