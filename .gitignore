@@ -2,8 +2,5 @@
 
 # 绑定配置文件
 /config.json
-
-# APIKEY文件
-/KON-KEY.txt
-
 .idea/
+.png
