@@ -3,4 +3,4 @@
 # 绑定配置文件
 /config.json
 .idea/
-.png
+*.png
